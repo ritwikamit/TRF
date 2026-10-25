@@ -123,12 +123,15 @@ export const Footer: React.FC<FooterProps> = ({ onOpenInquiry, onNavigatePage })
           </div>
         </div>
 
-        {/* Bottom Attribution Bar (Centered copyright and developer attribution as requested) */}
-        <div className="border-t border-white/10 pt-8 flex flex-col items-center justify-center text-center gap-2">
-          <p className="font-mono text-xs sm:text-sm text-neutral-400 tracking-wide">
-            © All Rights Reserved | Designed and Developed by ACCustomLabs
+        {/* Bottom Attribution Bar */}
+        <div className="border-t border-white/10 pt-8 flex flex-col items-center justify-center text-center gap-2.5">
+          <p className="font-mono text-xs sm:text-sm text-neutral-300 tracking-wide">
+            © {new Date().getFullYear()} The Royal Films. All Rights Reserved.
           </p>
-          <p className="font-mono text-[11px] text-neutral-600">
+          <p className="font-mono text-xs sm:text-sm text-neutral-400 tracking-wide">
+            Designed and Developed by ACCustomLabs
+          </p>
+          <p className="font-mono text-[11px] text-neutral-600 pt-1">
             THE ROYAL FILMS · GAYA, BIHAR · DUBAI DESTINATIONS
           </p>
         </div>

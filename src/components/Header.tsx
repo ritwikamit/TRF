@@ -133,9 +133,7 @@ export const Header: React.FC<HeaderProps> = ({
               { id: 'works' as const, number: '02', label: 'Wedding Stories & Films' },
               { id: 'about' as const, number: '03', label: 'Studio & Niraj Singh' },
               { id: 'journal' as const, number: '04', label: 'Wedding Guides' },
-              { id: 'contact' as const, number: '05', label: 'Bookings & Studio Visit' },
-              { id: 'cookie-policy' as const, number: '06', label: 'Cookie Privacy Policy' },
-              { id: 'terms' as const, number: '07', label: 'Terms & Conditions' }
+              { id: 'contact' as const, number: '05', label: 'Bookings & Studio Visit' }
             ].map((item, idx) => (
               <button
                 key={item.id}
