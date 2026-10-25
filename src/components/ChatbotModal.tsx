@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { X, Send, RefreshCw, ChevronDown, ExternalLink, Camera } from 'lucide-react';
+import { X, Send, RefreshCw, ChevronDown, ExternalLink, MessageSquare } from 'lucide-react';
 import { STUDIO_INFO } from '../data/projects';
 import { sendChatMessage, ChatMessage } from '../utils/aiChatbot';
 import { playShutterClick } from '../utils/audio';
@@ -117,19 +117,15 @@ export const ChatbotModal: React.FC<ChatbotModalProps> = ({ onOpenInquiry }) => 
           onClick={handleToggle}
           aria-label={isOpen ? 'Close TRF Studio Chat' : 'Chat with TRF Studio'}
           title="TRF Wedding Concierge"
-          className="group relative flex items-center justify-center w-12 h-12 bg-black/90 hover:bg-black text-white rounded-full shadow-[0_8px_24px_rgba(0,0,0,0.4)] backdrop-blur-md border border-white/15 hover:border-[#FF6B00] transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none"
+          className="group relative flex items-center justify-center w-12 h-12 bg-black/90 hover:bg-black text-white rounded-full shadow-[0_8px_24px_rgba(0,0,0,0.4)] backdrop-blur-md border border-white/15 hover:border-white/40 transition-all duration-300 hover:scale-105 active:scale-95 focus:outline-none"
         >
-          {/* Live active studio status badge */}
-          <span className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-[#16A34A] border-2 border-black" />
+          {/* Subtle live indicator dot in brand orange like before */}
+          <span className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-[#FF6B00] border-2 border-black animate-pulse" />
 
           {isOpen ? (
             <X className="w-4 h-4 text-white stroke-[2.5] transition-transform duration-200 group-hover:rotate-90" />
           ) : (
-            <div className="flex items-center justify-center relative">
-              <Camera className="w-4 h-4 text-white group-hover:text-[#FF6B00] transition-colors" />
-              {/* Dual dots brand insignia */}
-              <span className="absolute -bottom-1 -right-1 w-1.5 h-1.5 rounded-full bg-[#FF6B00]" />
-            </div>
+            <MessageSquare className="w-4 h-4 text-white stroke-[2.2] group-hover:text-[#FF6B00] transition-colors" />
           )}
         </button>
       </div>
@@ -142,28 +138,32 @@ export const ChatbotModal: React.FC<ChatbotModalProps> = ({ onOpenInquiry }) => 
           aria-label="TRF Studio Chat"
           className="fixed bottom-20 sm:bottom-36 left-3 sm:left-6 z-50 w-[calc(100vw-24px)] sm:w-[385px] h-[510px] max-h-[calc(100vh-100px)] bg-[#0C0C0C]/95 backdrop-blur-2xl border border-white/15 rounded-2xl shadow-[0_24px_60px_rgba(0,0,0,0.85)] flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-3 duration-300 select-text"
         >
-          {/* Top Brand Header with Human Studio Director Display Picture */}
+          {/* Top Brand Header with Distinctive Director Display Picture */}
           <div className="flex items-center justify-between px-3.5 sm:px-4 py-3 bg-[#141414] border-b border-white/10 shrink-0">
-            <div className="flex items-center gap-2.5">
-              {/* Bespoke Studio Director Display Picture with Camera & Brand Dots */}
-              <div className="relative w-9 h-9 rounded-full bg-gradient-to-tr from-[#181818] via-[#222222] to-[#2E2E2E] border border-white/25 flex items-center justify-center shrink-0 shadow-inner">
-                <Camera className="w-4 h-4 text-white" />
-                {/* Signature Dual Color Dots */}
-                <div className="absolute -bottom-0.5 -right-0.5 flex items-center gap-[2px] bg-black/90 px-1 py-[1.5px] rounded-full border border-white/20">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#8B5CF6]" />
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF6B00]" />
-                </div>
+            <div className="flex items-center gap-3">
+              {/* Director Portrait DP with Live Status & Signature Dots */}
+              <div className="relative w-10 h-10 rounded-full border-2 border-white/25 shrink-0 shadow-md overflow-hidden bg-neutral-900 group">
+                <img
+                  src="/assets/images/director_avatar.jpg"
+                  alt="Niraj Singh - Film Director"
+                  className="w-full h-full object-cover object-top"
+                />
+                {/* Live green active badge */}
+                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-[#16A34A] border-2 border-black" />
               </div>
 
               <div>
                 <div className="flex items-center gap-1.5">
                   <h3 className="text-xs font-bold text-white tracking-wide uppercase font-mono">
-                    Niraj Singh · TRF Studio
+                    Niraj Singh
                   </h3>
-                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#16A34A] animate-pulse" />
+                  <span className="text-[9px] px-1.5 py-[0.5px] rounded bg-white/10 text-neutral-300 font-mono">
+                    Director
+                  </span>
                 </div>
-                <p className="text-[10px] text-neutral-400 font-mono">
-                  Wedding Cinematographer · Online
+                <p className="text-[10px] text-neutral-400 font-mono flex items-center gap-1 mt-0.5">
+                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#16A34A] animate-pulse" />
+                  The Royal Films · Active Now
                 </p>
               </div>
             </div>
@@ -198,15 +198,22 @@ export const ChatbotModal: React.FC<ChatbotModalProps> = ({ onOpenInquiry }) => 
                   msg.sender === 'user' ? 'items-end' : 'items-start'
                 }`}
               >
-                <div
-                  className={`max-w-[88%] rounded-2xl px-3.5 py-2.5 leading-relaxed ${
-                    msg.sender === 'user'
-                      ? 'bg-[#FF6B00] text-white rounded-tr-sm font-medium shadow-md'
-                      : 'bg-[#181818] border border-white/10 text-neutral-200 rounded-tl-sm whitespace-pre-line'
-                  }`}
-                >
-                  {msg.text}
-                </div>
+                {msg.sender === 'bot' ? (
+                  <div className="flex items-end gap-2 max-w-[92%]">
+                    <img
+                      src="/assets/images/director_avatar.jpg"
+                      alt="Niraj Singh"
+                      className="w-6 h-6 rounded-full object-cover object-top shrink-0 border border-white/20 mb-1"
+                    />
+                    <div className="bg-[#181818] border border-white/10 text-neutral-200 rounded-2xl rounded-tl-sm px-3.5 py-2.5 leading-relaxed whitespace-pre-line shadow-sm">
+                      {msg.text}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="max-w-[88%] rounded-2xl px-3.5 py-2.5 leading-relaxed bg-[#FF6B00] text-white rounded-tr-sm font-medium shadow-md">
+                    {msg.text}
+                  </div>
+                )}
 
                 {/* Optional Action Button attached to message */}
                 {msg.action && (
