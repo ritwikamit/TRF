@@ -147,47 +147,123 @@ export function getLocalResponse(query: string): { text: string; action?: ChatMe
   };
 }
 
-// Online Gemini API Caller (uses @google/genai if API key available)
+// Hybrid AI Caller: Calls Vercel Serverless /api/chat with Openrouter_API, or direct OpenRouter/Gemini API, with fallback to local trained expert
 export async function sendChatMessage(userText: string, chatHistory: ChatMessage[]): Promise<{ text: string; action?: ChatMessage['action'] }> {
-  const apiKey = (import.meta as any).env?.VITE_GEMINI_API_KEY || (import.meta as any).env?.GEMINI_API_KEY || '';
-
-  if (!apiKey || apiKey === 'MY_GEMINI_API_KEY') {
-    // Instant fallback to local trained expert
-    await new Promise((resolve) => setTimeout(resolve, 450));
-    return getLocalResponse(userText);
-  }
-
+  // 1. Try Vercel Serverless Edge API (/api/chat) which has process.env.Openrouter_API
   try {
-    const ai = new GoogleGenAI({ apiKey });
-    
-    // Construct context
-    const conversation = chatHistory
-      .slice(-6)
-      .map((m) => `${m.sender === 'user' ? 'Guest' : 'TRF Concierge'}: ${m.text}`)
-      .join('\n');
-
-    const prompt = `${TRF_KNOWLEDGE_PROMPT}\n\nRecent Conversation:\n${conversation}\n\nGuest: ${userText}\n\nTRF Concierge (polite, direct, luxury tone):`;
-
-    const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
-      contents: prompt,
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        userText,
+        history: chatHistory.slice(-6).map((m) => ({ sender: m.sender, text: m.text }))
+      })
     });
 
-    const outputText = response.text || '';
-    if (!outputText) {
-      return getLocalResponse(userText);
-    }
-
-    return {
-      text: outputText,
-      action: {
-        type: 'whatsapp',
-        label: 'Connect with Niraj on WhatsApp',
-        url: STUDIO_INFO.whatsappUrl
+    if (res.ok) {
+      const data = await res.json();
+      if (data.text && !data.fallback) {
+        return {
+          text: data.text,
+          action: {
+            type: 'whatsapp',
+            label: 'Connect with Niraj on WhatsApp',
+            url: STUDIO_INFO.whatsappUrl
+          }
+        };
       }
-    };
-  } catch (error) {
-    console.warn('Gemini API call failed, using studio knowledge base:', error);
-    return getLocalResponse(userText);
+    }
+  } catch (err) {
+    // Non-fatal, proceed to client fallback
   }
+
+  // 2. Try Direct OpenRouter API call from client if Openrouter_API was defined in Vite
+  const openrouterKey =
+    (typeof process !== 'undefined' && (process.env?.Openrouter_API || process.env?.OPENROUTER_API || process.env?.OPENROUTER_API_KEY)) ||
+    (import.meta as any).env?.VITE_OPENROUTER_API_KEY ||
+    '';
+
+  if (openrouterKey && openrouterKey !== 'MY_OPENROUTER_API_KEY') {
+    try {
+      const messages = [
+        { role: 'system', content: TRF_KNOWLEDGE_PROMPT },
+        ...chatHistory.slice(-6).map((m) => ({
+          role: m.sender === 'user' ? 'user' : 'assistant',
+          content: m.text
+        })),
+        { role: 'user', content: userText }
+      ];
+
+      const orResponse = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${openrouterKey}`,
+          'Content-Type': 'application/json',
+          'HTTP-Referer': 'https://theroyalfilms.in',
+          'X-Title': 'The Royal Films Concierge'
+        },
+        body: JSON.stringify({
+          model: 'deepseek/deepseek-chat',
+          messages,
+          temperature: 0.7,
+          max_tokens: 500
+        })
+      });
+
+      if (orResponse.ok) {
+        const data = await orResponse.json();
+        const content = data.choices?.[0]?.message?.content;
+        if (content) {
+          return {
+            text: content,
+            action: {
+              type: 'whatsapp',
+              label: 'Connect with Niraj on WhatsApp',
+              url: STUDIO_INFO.whatsappUrl
+            }
+          };
+        }
+      }
+    } catch (e) {
+      console.warn('Direct OpenRouter fetch failed, checking Gemini / local fallback', e);
+    }
+  }
+
+  // 3. Try Gemini API if key is available
+  const geminiKey = (import.meta as any).env?.VITE_GEMINI_API_KEY || (import.meta as any).env?.GEMINI_API_KEY || '';
+  if (geminiKey && geminiKey !== 'MY_GEMINI_API_KEY') {
+    try {
+      const ai = new GoogleGenAI({ apiKey: geminiKey });
+      const conversation = chatHistory
+        .slice(-6)
+        .map((m) => `${m.sender === 'user' ? 'Guest' : 'TRF Concierge'}: ${m.text}`)
+        .join('\n');
+
+      const prompt = `${TRF_KNOWLEDGE_PROMPT}\n\nRecent Conversation:\n${conversation}\n\nGuest: ${userText}\n\nTRF Concierge (polite, direct, luxury tone):`;
+
+      const response = await ai.models.generateContent({
+        model: 'gemini-2.5-flash',
+        contents: prompt
+      });
+
+      const outputText = response.text || '';
+      if (outputText) {
+        return {
+          text: outputText,
+          action: {
+            type: 'whatsapp',
+            label: 'Connect with Niraj on WhatsApp',
+            url: STUDIO_INFO.whatsappUrl
+          }
+        };
+      }
+    } catch (error) {
+      console.warn('Gemini API call failed, using studio knowledge base:', error);
+    }
+  }
+
+  // 4. Instant high-fidelity trained studio response fallback
+  await new Promise((resolve) => setTimeout(resolve, 350));
+  return getLocalResponse(userText);
 }
+
