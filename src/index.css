@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --color-theme-purple: #8B5CF6;
+    --color-theme-purple-dark: #7C3AED;
+    --color-theme-orange: #FF6B00;
+    --color-theme-orange-light: #F97316;
+    --color-bg-dark: #0A0A0A;
+    --color-surface-dark: #141414;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #FFFFFF;
+    color: #111111;
+    overflow-x: hidden;
+  }
+
+  /* Completely remove scrollbar and track across the website */
+  html, body, * {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+  }
+
+  *::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+  }
+
+  /* Desktop custom cursor */
+  @media (pointer: fine) {
+    body, a, button, input, select, textarea {
+      cursor: none !important;
+    }
+  }
+
+  /* Clean sans metadata utility (avoiding typewriter/mono fonts completely) */
+  .font-sans-meta {
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .display-headline {
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+  }
+}
+
+/* Custom transitions and transforms */
+.transition-editorial {
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Asymmetrical Marquee Card Radii */
+.card-asym-a {
+  border-top-left-radius: 60px;
+}
+
+.card-asym-b {
+  border-top-right-radius: 60px;
+  border-bottom-left-radius: 30px;
+}
+
+.card-asym-c {
+  border-radius: 30px;
+}
+
+/* Black & White to Colorful on hover transitions */
+.editorial-image-hover,
+.photo-bw-to-color {
+  filter: grayscale(100%) contrast(1.06);
+  transition: filter 600ms cubic-bezier(0.16, 1, 0.3, 1), transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.editorial-image-hover:hover,
+.photo-bw-to-color:hover,
+.group:hover .editorial-image-hover,
+.group:hover .photo-bw-to-color,
+.group\/photo:hover .photo-bw-to-color,
+.group\/photo:hover img {
+  filter: grayscale(0%) contrast(1.02);
+}
+
+/* Marquee infinite scroll */
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 32s linear infinite;
+}
+
+.pause-on-hover:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
+/* Subtle flame flicker animation */
+@keyframes flame-pulse {
+  0%, 100% {
+    opacity: 0.95;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.015);
+  }
+}
+
+.animate-flame-pulse {
+  animation: flame-pulse 4s ease-in-out infinite;
+}

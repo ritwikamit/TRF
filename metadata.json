@@ -1,0 +1,6 @@
+{
+  "name": "Masoom Studio",
+  "description": "Patna's premier wedding photography and cinematic films company founded by Masoom Javed on Bailey Road, Patna. Candid weddings, 4K films, pre-wedding, and luxury albums.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
