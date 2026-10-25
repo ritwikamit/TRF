@@ -3,7 +3,7 @@ import { ArrowUpRight, Sparkles, MapPin } from 'lucide-react';
 import { PROJECTS } from '../data/projects';
 import { Project, WeddingCategory } from '../types';
 import { ArtCanvas } from './ArtCanvas';
-import { ScrollReveal } from './ScrollReveal';
+import { ScrollReveal, TextReveal } from './ScrollReveal';
 
 interface ProjectGridProps {
   onSelectProject: (project: Project) => void;
@@ -37,7 +37,9 @@ export const ProjectGrid: React.FC<ProjectGridProps> = ({ onSelectProject }) => 
               <span>FEATURED CELEBRATIONS</span>
             </div>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-black">
-              Selected Wedding Stories
+              <TextReveal variant="words" stagger={45} duration={750}>
+                Selected Wedding Stories
+              </TextReveal>
             </h2>
           </div>
 

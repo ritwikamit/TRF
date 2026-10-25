@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { STUDIO_SERVICES, STUDIO_INFO } from '../data/projects';
 import { Plus, Minus, ArrowUpRight } from 'lucide-react';
-import { ScrollReveal } from './ScrollReveal';
+import { ScrollReveal, TextReveal } from './ScrollReveal';
 
 interface CapabilitiesProps {
   onOpenInquiry: () => void;
@@ -27,11 +27,15 @@ export const Capabilities: React.FC<CapabilitiesProps> = ({ onOpenInquiry }) => 
                 <span>SERVICES & PACKAGES</span>
               </div>
               <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-black">
-                Wedding Photography & Cinema Services
+                <TextReveal variant="words" stagger={40} duration={800}>
+                  Wedding Photography & Cinema Services
+                </TextReveal>
               </h2>
-              <p className="mt-6 text-base text-[#525252] leading-relaxed">
-                We offer comprehensive, tailored packages for intimate roka ceremonies through grand 3-day destination weddings. Every assignment is led by senior cinematographers and candid storytellers.
-              </p>
+              <TextReveal variant="fade-blur" delay={150} duration={800}>
+                <p className="mt-6 text-base text-[#525252] leading-relaxed">
+                  We offer comprehensive, tailored packages for intimate roka ceremonies through grand 3-day destination weddings. Every assignment is led by senior cinematographers and candid storytellers.
+                </p>
+              </TextReveal>
             </div>
 
             <div className="mt-10 pt-8 border-t border-black/10">

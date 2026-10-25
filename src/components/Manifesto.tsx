@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollReveal } from './ScrollReveal';
+import { ScrollReveal, TextReveal } from './ScrollReveal';
 
 export const Manifesto: React.FC = () => {
   return (
@@ -14,21 +14,20 @@ export const Manifesto: React.FC = () => {
           </div>
         </ScrollReveal>
 
-        {/* Big Centered Statement */}
-        <ScrollReveal direction="up" delay={80} distance={30}>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-black leading-[1.08] max-w-4xl">
-            Weddings are not staged fashion shoots.
-            They are living, breathing tapestries of family, ritual, and profound human connection.
-          </h2>
-        </ScrollReveal>
+        {/* Big Centered Statement with Word-by-Word Scroll Reveal */}
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-black leading-[1.08] max-w-4xl">
+          <TextReveal variant="words" stagger={40} duration={800}>
+            Weddings are not staged fashion shoots. They are living, breathing tapestries of family, ritual, and profound human connection.
+          </TextReveal>
+        </h2>
 
-        {/* Secondary Paragraph with #525252 */}
-        <ScrollReveal direction="up" delay={160} distance={24}>
+        {/* Secondary Paragraph with Smooth Fade-Blur Scroll Reveal */}
+        <TextReveal variant="fade-blur" delay={200} duration={900}>
           <p className="mt-8 text-base sm:text-lg md:text-xl text-[#525252] max-w-2xl font-normal leading-relaxed tracking-[-0.02em]">
             Founded in Gaya by AAFT alumnus Niraj Singh in 2018, The Royal Films brings film-school storytelling, tech-enabled cinema systems, and genuine emotion to Indian weddings.
             We step back to capture honest tears and unscripted laughter, crafting cinematic films and heirloom albums you will treasure forever.
           </p>
-        </ScrollReveal>
+        </TextReveal>
 
         {/* Metric Dividers and Quantitative Proof */}
         <div className="mt-16 w-full grid grid-cols-2 md:grid-cols-4 gap-8 pt-12 border-t border-black/10 text-left">

@@ -4,7 +4,7 @@ import { Marquee } from '../components/Marquee';
 import { Manifesto } from '../components/Manifesto';
 import { ProjectGrid } from '../components/ProjectGrid';
 import { Capabilities } from '../components/Capabilities';
-import { ScrollReveal } from '../components/ScrollReveal';
+import { ScrollReveal, TextReveal } from '../components/ScrollReveal';
 import { Project, PageId } from '../types';
 import { STUDIO_INFO, TESTIMONIALS, FAQS } from '../data/projects';
 import { WhatsAppButton } from '../components/WhatsAppButton';
@@ -85,7 +85,9 @@ export const HomePage: React.FC<HomePageProps> = ({
                 <span>COUPLE EXPERIENCES</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-black">
-                Cherished by Families Across India & Abroad
+                <TextReveal variant="words" stagger={35} duration={750}>
+                  Cherished by Families Across India & Abroad
+                </TextReveal>
               </h2>
             </div>
             <div className="flex items-center gap-1 text-[#FF6B00]">
@@ -130,7 +132,9 @@ export const HomePage: React.FC<HomePageProps> = ({
                 <span>FREQUENTLY ASKED QUESTIONS</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-black">
-                Planning Your Wedding Photography
+                <TextReveal variant="words" stagger={35} duration={750}>
+                  Planning Your Wedding Photography
+                </TextReveal>
               </h2>
             </div>
           </ScrollReveal>
