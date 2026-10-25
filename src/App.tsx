@@ -122,8 +122,8 @@ export default function App() {
         onOpenInquiry={() => setIsInquiryOpen(true)}
       />
 
-      {/* Dedicated Page Render with Section Specific Styling - Emerges smoothly as doors open */}
-      <main className={`min-h-screen transition-all duration-700 ease-out origin-center ${isInitialLoading || isTransitioning ? 'scale-[0.97] opacity-90' : 'scale-100 opacity-100'}`}>
+      {/* Dedicated Page Render - Constantly visible behind the door with smooth 3D depth fly-through */}
+      <main className={`min-h-screen transition-transform duration-700 ease-out origin-center ${isInitialLoading || isTransitioning ? 'scale-[0.94]' : 'scale-100'}`}>
         {currentPage === 'home' && (
           <HomePage
             onSelectProject={(project) => setSelectedProject(project)}

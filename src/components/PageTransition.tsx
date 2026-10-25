@@ -18,10 +18,10 @@ export const PageTransition: React.FC<PageTransitionProps> = ({
   currentPage
 }) => {
   // Animation stages:
-  // 'idle': completely hidden
-  // 'intro': black screen, horizontal line expands, small door sits in the center
-  // 'approaching': door rushes forward toward the screen & doors swing wide open
-  // 'revealing': door leaves fly past screen edges, backdrop dissolves, revealing page behind
+  // 'idle': completely hidden, viewer is on the page
+  // 'intro': viewer stands in front of the door, page is constantly visible behind
+  // 'approaching': viewer flies forward into the door as the doors swing open
+  // 'revealing': viewer passes behind the door onto the page, doors fly past screen peripheries
   const [stage, setStage] = useState<'idle' | 'intro' | 'approaching' | 'revealing'>('idle');
 
   const activePageId = targetPage || currentPage || 'home';
@@ -30,27 +30,28 @@ export const PageTransition: React.FC<PageTransitionProps> = ({
 
   // Exact theme color of the door (pure white for home, vibrant theme color for other pages)
   const doorColor = isHome ? '#FFFFFF' : theme.primaryColor;
-  const doorBorderColor = isHome ? 'rgba(0,0,0,0.2)' : 'rgba(255,255,255,0.3)';
+  const doorBorderColor = isHome ? 'rgba(0,0,0,0.25)' : 'rgba(255,255,255,0.4)';
+  const handleColor = isHome ? '#111111' : '#FFFFFF';
 
   // Initial Load Sequence
   useEffect(() => {
     if (isInitialLoading) {
       setStage('intro');
 
-      // Door begins approaching screen and swinging open
+      // Viewer starts advancing through the door as it swings open
       const t1 = setTimeout(() => {
         setStage('approaching');
       }, 350);
 
-      // Doors fly past screen edges, revealing page behind
+      // Viewer moves behind the door directly onto the page
       const t2 = setTimeout(() => {
         setStage('revealing');
-      }, 900);
+      }, 950);
 
-      // Animation complete
+      // Transition finished
       const t3 = setTimeout(() => {
         setStage('idle');
-      }, 1350);
+      }, 1400);
 
       return () => {
         clearTimeout(t1);
@@ -98,71 +99,74 @@ export const PageTransition: React.FC<PageTransitionProps> = ({
         perspectiveOrigin: '50% 50%'
       }}
     >
-      {/* 1. Black Screen Background Curtain - Fades away as the door opens to reveal the page behind */}
+      {/* 1. Cinematic Ambient Lighting Overlay - Keeps the pages CONSTANTLY visible behind the door with subtle depth vignette */}
       <div
-        className="absolute inset-0 bg-[#060606] transition-opacity duration-600 ease-out"
+        className="absolute inset-0 transition-opacity duration-700 ease-out pointer-events-none"
         style={{
+          background: 'radial-gradient(circle at center, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.55) 100%)',
+          backdropFilter: isIntro ? 'blur(1.5px)' : 'none',
           opacity: isRevealing ? 0 : 1
         }}
       />
 
       {/* 2. Sleek Horizontal Line in Screen Middle */}
       <div
-        className="absolute top-1/2 left-0 right-0 h-[1.5px] -translate-y-1/2 pointer-events-none overflow-hidden transition-all duration-500 ease-out"
+        className="absolute top-1/2 left-0 right-0 h-[1.5px] -translate-y-1/2 pointer-events-none overflow-hidden transition-all duration-600 ease-out"
         style={{
-          opacity: isRevealing ? 0 : isIntro ? 1 : 0.6,
-          transform: isApproaching ? 'translateY(-50%) scaleX(1.4)' : 'translateY(-50%) scaleX(1)'
+          opacity: isRevealing ? 0 : isIntro ? 0.9 : 0.3,
+          transform: isApproaching ? 'translateY(-50%) scaleX(1.8)' : 'translateY(-50%) scaleX(1)'
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent blur-[1px]" />
         <div
-          className="h-full mx-auto bg-gradient-to-r from-transparent via-white/80 to-transparent transition-all duration-500 ease-out"
+          className="h-full mx-auto bg-gradient-to-r from-transparent via-white/80 to-transparent transition-all duration-600 ease-out"
           style={{
             width: isIntro || isApproaching ? '100%' : '0%'
           }}
         />
       </div>
 
-      {/* 3. The 3D Door Rig: Rushes forward toward screen as the doors swing open */}
+      {/* 3. The 3D Doorway: Viewer flies forward through the doorway as doors open */}
       <div
         className="relative z-30 flex items-center justify-center will-change-transform"
         style={{
           transformStyle: 'preserve-3d',
+          // Viewer fly-through motion: starts at distance, zooms massive past screen as viewer goes behind it
           transform: isIntro
-            ? 'scale(0.85) translateZ(-80px)'
+            ? 'scale(1) translateZ(0px)'
             : isApproaching
-            ? 'scale(2.2) translateZ(120px)'
-            : 'scale(4.8) translateZ(400px)',
+            ? 'scale(3.2) translateZ(280px)'
+            : 'scale(7.5) translateZ(650px)',
           opacity: isRevealing ? 0 : 1,
           transition: isIntro
             ? 'transform 300ms cubic-bezier(0.16, 1, 0.3, 1), opacity 200ms ease-out'
             : isApproaching
-            ? 'transform 600ms cubic-bezier(0.16, 1, 0.3, 1), opacity 400ms ease-out'
-            : 'transform 500ms ease-in, opacity 350ms ease-out'
+            ? 'transform 700ms cubic-bezier(0.16, 1, 0.3, 1), opacity 500ms ease-out'
+            : 'transform 450ms ease-in, opacity 350ms ease-out'
         }}
       >
-        {/* Door Frame Outer Arch with Curved Edges */}
+        {/* Door Outer Curved Frame */}
         <div
-          className="relative w-[130px] h-[180px] rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.9)] flex p-[3px] transition-all duration-500"
+          className="relative w-[135px] h-[190px] rounded-2xl shadow-[0_25px_60px_rgba(0,0,0,0.85)] flex p-[3px] transition-all duration-500"
           style={{
             transformStyle: 'preserve-3d',
-            backgroundColor: 'rgba(10, 10, 10, 0.6)',
+            backgroundColor: 'rgba(10, 10, 10, 0.35)',
             border: `1.5px solid ${doorBorderColor}`
           }}
         >
-          {/* Inner Portal Cutout - As doors open, the page appears right behind the door */}
+          {/* Transparent Portal Opening: The page behind is visible right through the center doorway */}
           <div className="absolute inset-1 rounded-xl overflow-hidden pointer-events-none flex items-center justify-center">
-            {/* Soft inner glow matching page theme color */}
+            {/* Soft tint that matches the page color */}
             <div
               className="absolute inset-0 transition-opacity duration-500"
               style={{
                 backgroundColor: doorColor,
-                opacity: isApproaching || isRevealing ? 0.35 : 0.08
+                opacity: isApproaching ? 0.15 : 0.05
               }}
             />
           </div>
 
-          {/* LEFT DOOR LEAF - Swings outward to the left into 3D perspective */}
+          {/* LEFT DOOR LEAF: Swings open to the left in 3D perspective and parts away */}
           <div
             className="w-1/2 h-full rounded-l-xl relative overflow-hidden transition-all duration-700"
             style={{
@@ -171,24 +175,24 @@ export const PageTransition: React.FC<PageTransitionProps> = ({
               transform: isIntro
                 ? 'rotateY(0deg)'
                 : isApproaching
-                ? 'rotateY(-115deg) translateX(-10px)'
-                : 'rotateY(-135deg) translateX(-60px)',
-              boxShadow: isApproaching || isRevealing ? '0 10px 30px rgba(0,0,0,0.8)' : 'none',
+                ? 'rotateY(-118deg) translateX(-18px)'
+                : 'rotateY(-140deg) translateX(-80px)',
+              boxShadow: isApproaching || isRevealing ? '0 12px 36px rgba(0,0,0,0.85)' : 'none',
               transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
               borderRight: '1px solid rgba(0,0,0,0.15)'
             }}
           >
-            {/* Door Panel Bevel & Shadow */}
+            {/* Subtle wood/metal door panel bevels */}
             <div className="absolute inset-0 bg-gradient-to-r from-black/15 via-transparent to-black/10 pointer-events-none" />
             <div className="absolute top-2 bottom-2 left-2 right-1 border border-black/10 rounded-lg pointer-events-none" />
-            {/* Minimal Door Handle / Latch */}
+            {/* Door Handle */}
             <div
               className="absolute top-1/2 right-1.5 w-1 h-5 -translate-y-1/2 rounded-full shadow-sm"
-              style={{ backgroundColor: isHome ? '#111111' : '#FFFFFF' }}
+              style={{ backgroundColor: handleColor }}
             />
           </div>
 
-          {/* RIGHT DOOR LEAF - Swings outward to the right into 3D perspective */}
+          {/* RIGHT DOOR LEAF: Swings open to the right in 3D perspective and parts away */}
           <div
             className="w-1/2 h-full rounded-r-xl relative overflow-hidden transition-all duration-700"
             style={{
@@ -197,28 +201,28 @@ export const PageTransition: React.FC<PageTransitionProps> = ({
               transform: isIntro
                 ? 'rotateY(0deg)'
                 : isApproaching
-                ? 'rotateY(115deg) translateX(10px)'
-                : 'rotateY(135deg) translateX(60px)',
-              boxShadow: isApproaching || isRevealing ? '0 10px 30px rgba(0,0,0,0.8)' : 'none',
+                ? 'rotateY(118deg) translateX(18px)'
+                : 'rotateY(140deg) translateX(80px)',
+              boxShadow: isApproaching || isRevealing ? '0 12px 36px rgba(0,0,0,0.85)' : 'none',
               transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
               borderLeft: '1px solid rgba(0,0,0,0.15)'
             }}
           >
-            {/* Door Panel Bevel & Shadow */}
+            {/* Subtle wood/metal door panel bevels */}
             <div className="absolute inset-0 bg-gradient-to-l from-black/15 via-transparent to-black/10 pointer-events-none" />
             <div className="absolute top-2 bottom-2 right-2 left-1 border border-black/10 rounded-lg pointer-events-none" />
-            {/* Minimal Door Handle / Latch */}
+            {/* Door Handle */}
             <div
               className="absolute top-1/2 left-1.5 w-1 h-5 -translate-y-1/2 rounded-full shadow-sm"
-              style={{ backgroundColor: isHome ? '#111111' : '#FFFFFF' }}
+              style={{ backgroundColor: handleColor }}
             />
           </div>
         </div>
       </div>
 
-      {/* 4. Elegant Studio Typography Label that fades out as the door swings open */}
+      {/* 4. Elegant Minimal Studio Tagline floating below the door */}
       <div
-        className="absolute top-[calc(50%+115px)] text-center transition-all duration-400 font-mono text-[11px] tracking-widest uppercase text-white/75"
+        className="absolute top-[calc(50%+120px)] text-center transition-all duration-400 font-mono text-[11px] tracking-widest uppercase text-white/70"
         style={{
           opacity: isIntro ? 1 : 0,
           transform: isIntro ? 'translateY(0)' : 'translateY(12px) scale(0.95)'
