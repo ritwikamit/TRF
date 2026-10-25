@@ -8,6 +8,7 @@ import { PageTransition } from './components/PageTransition';
 import { CookieConsent } from './components/CookieConsent';
 import { WhatsAppButton } from './components/WhatsAppButton';
 import { ScrollToTop } from './components/ScrollToTop';
+import { ChatbotModal } from './components/ChatbotModal';
 
 import { HomePage } from './pages/HomePage';
 import { WorksPage } from './pages/WorksPage';
@@ -35,11 +36,20 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState<PageId>('home');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isInquiryOpen, setIsInquiryOpen] = useState(false);
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
 
   // Transition state
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [targetPage, setTargetPage] = useState<PageId | null>(null);
   const [transitionPhase, setTransitionPhase] = useState<'idle' | 'covering' | 'uncovering'>('idle');
+
+  // Initial loading door-opening sequence
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsInitialLoading(false);
+    }, 1350);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Handle URL hash changes for direct linking & back/forward navigation
   useEffect(() => {
@@ -96,11 +106,13 @@ export default function App() {
       {/* 32px Circular Interactive Difference Cursor with Lerp and 2.5x Hover */}
       <CustomCursor />
 
-      {/* Camera Shutter Consistent Page Transition Overlay */}
+      {/* Camera Shutter & Door Opening Consistent Page Transition Overlay */}
       <PageTransition
+        isInitialLoading={isInitialLoading}
         isTransitioning={isTransitioning}
         targetPage={targetPage}
         phase={transitionPhase}
+        currentPage={currentPage}
       />
 
       {/* Fixed Header with dark luxury backdrop and navigation */}
@@ -183,6 +195,9 @@ export default function App() {
 
       {/* Floating Scroll to Top button with border progress filling as user scrolls */}
       <ScrollToTop />
+
+      {/* Floating TRF AI Concierge Chatbot Button & Drawer */}
+      <ChatbotModal onOpenInquiry={() => setIsInquiryOpen(true)} />
 
       {/* Functional Cookie Consent Banner */}
       <CookieConsent onNavigatePage={handleNavigatePage} />
