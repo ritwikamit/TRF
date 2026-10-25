@@ -61,12 +61,12 @@ export const PAGE_THEMES: Record<PageId, PageThemeConfig> = {
     id: 'contact',
     name: 'RESERVE WEDDING DATES',
     number: '05',
-    primaryColor: '#EAB308', // Vibrant Light Yellow
-    accentColor: '#FDE047',
-    pageBgClass: 'bg-[#EAB308] text-black',
-    textColor: 'text-black',
-    badgeBg: 'text-black',
-    borderColor: 'border-black/30'
+    primaryColor: '#D97706', // Warm Amber Gold transition
+    accentColor: '#F59E0B',
+    pageBgClass: 'bg-[#0A0A0A] text-white',
+    textColor: 'text-white',
+    badgeBg: 'text-white',
+    borderColor: 'border-white/20'
   },
   'cookie-policy': {
     id: 'cookie-policy',
