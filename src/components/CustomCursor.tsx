@@ -86,7 +86,7 @@ export const CustomCursor: React.FC = () => {
     <div
       ref={cursorRef}
       aria-hidden="true"
-      className={`fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-[9999] transition-opacity duration-300 flex items-center justify-center ${
+      className={`fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-[9999] transition-opacity duration-300 hidden md:flex items-center justify-center ${
         isVisible ? 'opacity-100' : 'opacity-0'
       }`}
       style={{

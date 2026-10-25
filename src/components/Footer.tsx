@@ -10,7 +10,7 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ onOpenInquiry, onNavigatePage }) => {
   return (
-    <footer className="bg-[#0A0A0A] text-white pt-14 pb-10 px-6 border-t border-white/10 select-none">
+    <footer className="bg-[#0A0A0A] text-white pt-14 pb-24 sm:pb-12 px-4 sm:px-6 border-t border-white/10 select-none">
       <div className="max-w-6xl mx-auto space-y-12">
         {/* Top Minimal 3-Zone Architecture */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-start">

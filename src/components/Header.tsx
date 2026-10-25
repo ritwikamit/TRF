@@ -116,7 +116,7 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Fullscreen Overlay Menu */}
       <div
-        className={`fixed inset-0 z-40 bg-[#0A0A0A] text-white flex flex-col justify-between p-8 md:p-16 transition-all duration-700 ${
+        className={`fixed inset-0 z-40 bg-[#0A0A0A] text-white flex flex-col justify-between p-5 sm:p-8 md:p-16 overflow-y-auto transition-all duration-700 ${
           isMenuOpen
             ? 'opacity-100 pointer-events-auto translate-y-0'
             : 'opacity-0 pointer-events-none -translate-y-8'

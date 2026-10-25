@@ -60,7 +60,7 @@ export const Hero: React.FC<HeroProps> = ({ onScrollDown, onOpenInquiry }) => {
     <section
       ref={heroRef}
       id="top"
-      className="relative min-h-screen w-full flex flex-col justify-between items-center text-center px-6 pt-24 sm:pt-28 pb-8 overflow-hidden select-none text-white bg-black"
+      className="relative min-h-screen w-full flex flex-col justify-between items-center text-center px-4 sm:px-6 pt-20 sm:pt-28 pb-8 overflow-hidden select-none text-white bg-black"
     >
       {/* 1. Full-screen Cinematic Background Slider (edge-to-edge, cover, face-safe) */}
       <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
@@ -119,7 +119,7 @@ export const Hero: React.FC<HeroProps> = ({ onScrollDown, onOpenInquiry }) => {
         {/* Monumental Headline: THE ROYAL FILMS */}
         <h1
           className="w-full font-extrabold tracking-tight text-white uppercase overflow-hidden leading-[0.9] flex flex-wrap justify-center items-center gap-x-[2vw] md:gap-x-[3vw] drop-shadow-2xl"
-          style={{ fontSize: 'clamp(3rem, 10vw, 9.5rem)', letterSpacing: '-0.04em' }}
+          style={{ fontSize: 'clamp(2.35rem, 9.2vw, 9.5rem)', letterSpacing: '-0.04em' }}
         >
           {/* Prefix: THE - Color changes according to website color palette */}
           <span

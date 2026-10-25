@@ -26,10 +26,10 @@ export const ProjectGrid: React.FC<ProjectGridProps> = ({ onSelectProject }) => 
   ];
 
   return (
-    <section id="projects" className="py-20 md:py-32 px-6 max-w-7xl mx-auto bg-white">
+    <section id="projects" className="py-16 md:py-32 px-4 sm:px-6 max-w-7xl mx-auto bg-white">
       {/* Section Header & Interactive Filter Bar */}
       <ScrollReveal direction="up" distance={20}>
-        <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-black/10 pb-8 mb-16 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-black/10 pb-6 mb-12 sm:mb-16 gap-6">
           <div>
             <div className="font-mono-meta text-xs text-[#525252] mb-3 flex items-center gap-2">
               <span>01</span>
@@ -41,8 +41,8 @@ export const ProjectGrid: React.FC<ProjectGridProps> = ({ onSelectProject }) => 
             </h2>
           </div>
 
-          {/* Interactive Segmented Filter Controls */}
-          <div className="flex flex-wrap items-center gap-2">
+          {/* Interactive Segmented Filter Controls with Mobile Swipe */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 sm:pb-0 no-scrollbar sm:flex-wrap w-full md:w-auto">
             {categories.map((cat) => (
               <button
                 key={cat.key}

@@ -31,7 +31,7 @@ export const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Direct WhatsApp message to Niraj Singh"
-          className={`fixed bottom-6 right-6 z-40 group flex items-center gap-2.5 px-4 py-3 bg-[#121212]/95 hover:bg-black text-white border border-white/20 hover:border-[#FF6B00] shadow-[0_10px_30px_rgba(0,0,0,0.5)] backdrop-blur-md rounded-full transition-all duration-300 hover:scale-105 active:scale-95 ${className}`}
+          className={`fixed bottom-6 right-4 sm:right-6 z-40 group flex items-center gap-2.5 px-3.5 sm:px-4 py-3 bg-[#121212]/95 hover:bg-black text-white border border-white/20 hover:border-[#FF6B00] shadow-[0_10px_30px_rgba(0,0,0,0.5)] backdrop-blur-md rounded-full transition-all duration-300 hover:scale-105 active:scale-95 ${className}`}
           style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
         >
           {/* Subtle status indicator dot in brand orange */}

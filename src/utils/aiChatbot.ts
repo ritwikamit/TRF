@@ -15,38 +15,30 @@ export interface ChatMessage {
 
 // Comprehensive Studio Knowledge Base for training
 const TRF_KNOWLEDGE_PROMPT = `
-You are the AI Concierge for "The Royal Films" (TRF) — a premier luxury wedding photography and cinematic film studio based in Gaya, Bihar, India.
+You are the studio manager and wedding coordinator at "The Royal Films" (TRF) working alongside founder & filmmaker Niraj Singh.
 
-Studio Details:
-- Name: The Royal Films (TRF)
-- Founder & Creative Director: Niraj Singh (AAFT Alumnus, trained filmmaker)
-- Established: 2018
-- Address: Chhotki Nawada, Near Gandhi More, Korma Road, Gaya, Bihar 823002
-- Contact: Phone/WhatsApp +91 70043 75740 | Secondary +91 95045 87351
-- Email: info@theroyalfilms.in
-- Google Reviews: 4.6 ★ (Over 100+ verified 5-star reviews)
-- Core Ethos: Tech-enabled, authentic visual storytelling, non-intrusive candid photography, color science calibrated for Indian weddings and dusk reflections.
+STRICT TONE GUIDELINES:
+- Speak naturally like a knowledgeable, warm human wedding coordinator — NEVER sound like an AI.
+- NEVER say "As an AI language model", "I am happy to assist you", "In conclusion", or fluffy robotic filler.
+- Keep answers concise, accurate, and direct (max 2-3 short paragraphs or clean bullet points).
+- Address couples respectfully with Indian warmth (e.g. "Namaste!").
 
-Services & Packages:
-1. Candid Wedding Photography: Emotional micro-moments, unposed captures, documentary style.
-2. 4K Cinematic Wedding Films: Directed with high-fidelity audio, narrative arc, master teasers (3-5 min) and full documentary films (35-45 min).
-3. Pre-Wedding Concept Films: Riverfront sunset boat journeys (Ganges/Varanasi), heritage steppes, and destination concept shoots.
-4. Licensed 4K Drone Cinematography: Aerial perspectives of grand baraat entries, palace venues, and outdoor rituals.
-5. Luxury Albums: Handcrafted Italian leather and velvet flush-mount 12x18 albums with archival anti-fade printing.
-6. Multi-day coverage: Haldi, Mehendi, Sangeet, Tilak, Varmala, Pheras, Bidaai, and Reception.
-
-Pricing & Booking Policy:
-- Indicative single-day photo coverage starts around ₹50,000.
-- Combined photo + 4K cinema + drone starts around ₹70,000 - ₹85,000/day.
-- Multi-day bespoke packages available upon date availability inquiry.
-- Standard turnaround: 4K Teaser in 2-3 weeks, complete photos & film within 4-5 weeks.
-- Service regions: Gaya, Bodh Gaya, Patna, Rajgir, Nalanda, Muzaffarpur, Ranchi, Jamshedpur, Varanasi, Kolkata, and destination weddings nationwide.
-
-Tone & Instructions:
-- Be warm, refined, polite, and professional (address guests respectfully).
-- Answer questions accurately using the studio facts above.
-- Always offer to connect the client directly with Niraj Singh on WhatsApp (+91 70043 75740) for checking date availability and customized quotes.
-- Keep responses concise, organized, and helpful.
+STUDIO FACTS:
+- Studio: The Royal Films (TRF), established 2018 in Gaya, Bihar.
+- Founder & Director: Niraj Singh (AAFT Alumnus, trained cinema director). 4.6★ rating across 100+ verified Google reviews.
+- Location: Chhotki Nawada, Near Gandhi More, Korma Road, Gaya, Bihar 823002.
+- Travel: Regularly shoots weddings in Patna, Bodh Gaya, Rajgir, Muzaffarpur, Ranchi, Jamshedpur, Varanasi, Kolkata, and destination weddings across India.
+- Indicative Pricing:
+  • Candid Photography: ~₹50,000/day
+  • Photo + 4K Cinema + Drone: ~₹70,000 – ₹85,000/day
+  • Multi-day royal weddings: Custom bespoke package with complimentary pre-wedding teaser.
+- Cinema Gear: Dual Sony FX6 cinema cameras, Sony A7S III (10-bit 4:2:2 S-Log3), Sony G-Master 24-70mm f/2.8, 50mm f/1.2, 85mm f/1.4, licensed DJI Mavic 3 Cine drone, wireless lavaliers for crisp vows.
+- Deliverables & Timeline:
+  • 4K Cinematic Teaser (3-5 min): 2 to 3 weeks.
+  • Full documentary film (35-45 min) + 600-900+ edited stills: 4 to 5 weeks.
+  • Albums: Handcrafted Italian leather or velvet flush-mount 12x18 albums.
+- Contact: Phone/WhatsApp +91 70043 75740 | Secondary +91 95045 87351.
+- Offer to connect on WhatsApp (+91 70043 75740) for date availability.
 `;
 
 // Local intelligent response engine for 100% reliable instant answers (offline/fallback)
@@ -56,10 +48,10 @@ export function getLocalResponse(query: string): { text: string; action?: ChatMe
   // 1. Pricing & Packages
   if (q.includes('price') || q.includes('cost') || q.includes('package') || q.includes('rate') || q.includes('fee') || q.includes('budget') || q.includes('quote')) {
     return {
-      text: `Our bespoke wedding collections are tailored to your celebration scale:\n\n• **Standard Photography**: From ~₹50,000/day (candid stills + traditional coverage)\n• **Cinematic Film + Drone**: From ~₹70,000 – ₹85,000/day (Dual Sony FX6 4K cinema + licensed drone + audio mastering)\n• **Multi-Day Royal Collections**: Custom packages for 2 to 4-day weddings with complimentary pre-wedding teaser.\n\nEvery package includes timely delivery of color-graded high-resolution photos and master 4K films.`,
+      text: `Here is an overview of our typical wedding packages:\n\n• **Photography Only**: ~₹50,000/day (candid stills + traditional coverage)\n• **Photo + 4K Cinema + Drone**: ~₹70,000 – ₹85,000/day (dual Sony FX6 cinema cameras, licensed drone, 24-bit audio)\n• **Multi-Day Weddings (2–4 days)**: Custom packages with a complimentary pre-wedding teaser.\n\nAll packages include color-graded high-resolution photos and master 4K films. When is your wedding? Drop your dates to check availability.`,
       action: {
         type: 'whatsapp',
-        label: 'Get Custom Quote on WhatsApp',
+        label: 'Check Dates on WhatsApp',
         url: STUDIO_INFO.whatsappUrl
       }
     };
@@ -68,10 +60,10 @@ export function getLocalResponse(query: string): { text: string; action?: ChatMe
   // 2. Niraj Singh / Founder / AAFT
   if (q.includes('niraj') || q.includes('founder') || q.includes('who are you') || q.includes('about') || q.includes('team') || q.includes('experience') || q.includes('background')) {
     return {
-      text: `**The Royal Films** was founded in 2018 by **Niraj Singh**, an alumnus of the prestigious **Asian Academy of Film and Television (AAFT)**.\n\nNiraj blends classical cinematic directing techniques with modern high-speed primes and silent electronic shutters. Under his creative direction, TRF has documented over 100+ royal and heritage weddings across Bihar, Jharkhand, and India with a 4.6★ rating.`,
+      text: `The Royal Films is led by **Niraj Singh**, an alumnus of the Asian Academy of Film and Television (AAFT).\n\nHe has been directing and documenting royal weddings since 2018 with a focus on unfiltered, candid emotions and cinema-grade color science. TRF has documented 100+ weddings across Bihar and India with a 4.6★ rating.`,
       action: {
         type: 'whatsapp',
-        label: 'Chat with Niraj Singh',
+        label: 'Message Niraj Directly',
         url: STUDIO_INFO.whatsappUrl
       }
     };
@@ -80,10 +72,10 @@ export function getLocalResponse(query: string): { text: string; action?: ChatMe
   // 3. Drone & Camera Gear
   if (q.includes('gear') || q.includes('camera') || q.includes('drone') || q.includes('equipment') || q.includes('lens') || q.includes('sony') || q.includes('4k')) {
     return {
-      text: `We use cinema-grade production gear to ensure royal visual fidelity:\n\n• **Cinema Bodies**: Sony FX6 & Sony A7S III (10-bit 4:2:2 S-Log3)\n• **Lenses**: Sony G-Master 24-70mm f/2.8 GM II, 50mm f/1.2 GM, 85mm f/1.4 GM\n• **Aerial Drone**: Licensed DJI Mavic 3 Cine & DJI Air 3 4K HDR\n• **Audio**: Directional 24-bit wireless lavaliers for crisp vows and speeches\n• **Lighting**: Profoto off-camera TTL wireless speedlights with soft diffusers.`,
+      text: `We shoot with cinema production gear:\n\n• **Cameras**: Dual Sony FX6 cinema cameras & Sony A7S III (10-bit 4:2:2 S-Log3)\n• **Lenses**: Sony G-Master 24-70mm f/2.8 GM II, 50mm f/1.2 GM, 85mm f/1.4 GM\n• **Drone**: Licensed DJI Mavic 3 Cine & DJI Air 3 4K HDR\n• **Audio**: Directional 24-bit wireless lavaliers on the couple for crisp vows\n• **Lighting**: Profoto off-camera TTL wireless lighting.`,
       action: {
         type: 'inquiry',
-        label: 'View Wedding Works'
+        label: 'View Portfolio Works'
       }
     };
   }
@@ -91,10 +83,10 @@ export function getLocalResponse(query: string): { text: string; action?: ChatMe
   // 4. Pre-wedding / Concept Shoots
   if (q.includes('pre-wedding') || q.includes('pre wedding') || q.includes('concept') || q.includes('engagement') || q.includes('couple shoot')) {
     return {
-      text: `Yes! Pre-wedding films are one of our core specialties. We shoot romantic, story-driven concept films at iconic locations:\n\n• **Riverfront Twilight**: Ganges wooden boat journeys in Varanasi & Gaya\n• **Heritage Steppes & Hills**: Bodh Gaya, Rajgir, and historic forts\n• **Modern Editorial**: Minimalist studios and bespoke luxury resorts\n\nDeliverables include a 90-second 4K Save-the-Date teaser, 50+ editorial stills, and music-synchronized reels for your wedding entrance.`,
+      text: `Pre-wedding films are one of our core specialties. We shoot narrative concept films at destinations like:\n\n• **Riverfront Twilight**: Ganges wooden boat journeys in Varanasi & Gaya\n• **Heritage Sites**: Bodh Gaya, Rajgir, and historic forts\n• **Modern Editorial**: Minimalist indoor sets & luxury resorts\n\nDeliverables include a 90-second 4K Save-the-Date teaser, 50+ editorial stills, and music reels for your wedding entrance.`,
       action: {
         type: 'whatsapp',
-        label: 'Plan Pre-Wedding Concept',
+        label: 'Plan Pre-Wedding Shoot',
         url: STUDIO_INFO.whatsappUrl
       }
     };
@@ -103,10 +95,10 @@ export function getLocalResponse(query: string): { text: string; action?: ChatMe
   // 5. Delivery timeline / Album
   if (q.includes('delivery') || q.includes('timeline') || q.includes('how long') || q.includes('when') || q.includes('album') || q.includes('photos')) {
     return {
-      text: `We respect your anticipation and guarantee prompt delivery:\n\n• **Cinematic 4K Teaser**: 2 – 3 weeks post-wedding\n• **Full Stills Collection (600–900+ photos)**: 3 – 4 weeks\n• **Full Documentary Film (35–45 mins)**: 4 – 5 weeks\n• **Albums**: Handcrafted Italian leather or silk-embossed 12x18 flush-mount albums printed on anti-fade archival paper.`,
+      text: `Our typical delivery timeline:\n\n• **4K Teaser**: 2 to 3 weeks\n• **Full Stills Collection (600–900+ photos)**: 3 to 4 weeks\n• **Full Documentary Film (35–45 mins)**: 4 to 5 weeks\n• **Albums**: Handcrafted Italian leather or velvet flush-mount 12x18 albums printed on archival paper.`,
       action: {
         type: 'whatsapp',
-        label: 'Inquire on WhatsApp',
+        label: 'Ask on WhatsApp',
         url: STUDIO_INFO.whatsappUrl
       }
     };
@@ -115,7 +107,7 @@ export function getLocalResponse(query: string): { text: string; action?: ChatMe
   // 6. Location / Address / Travel
   if (q.includes('location') || q.includes('address') || q.includes('where') || q.includes('gaya') || q.includes('patna') || q.includes('travel') || q.includes('destination')) {
     return {
-      text: `Our main studio is located at **Chhotki Nawada, Near Gandhi More, Korma Road, Gaya, Bihar 823002**.\n\nWe regularly travel for weddings across **Patna, Bodh Gaya, Rajgir, Muzaffarpur, Ranchi, Jamshedpur, Varanasi, Kolkata**, and destination weddings throughout India. All travel and crew logistics are handled seamlessly.`,
+      text: `Our main studio is located at **Chhotki Nawada, Near Gandhi More, Korma Road, Gaya, Bihar 823002**.\n\nWe regularly travel for weddings across **Patna, Bodh Gaya, Rajgir, Muzaffarpur, Ranchi, Jamshedpur, Varanasi, Kolkata**, and destination weddings throughout India. All crew travel logistics are handled seamlessly.`,
       action: {
         type: 'whatsapp',
         label: 'Check Travel to Your City',
@@ -127,10 +119,10 @@ export function getLocalResponse(query: string): { text: string; action?: ChatMe
   // 7. Booking / Date Availability / Contact
   if (q.includes('book') || q.includes('reserve') || q.includes('date') || q.includes('available') || q.includes('contact') || q.includes('call') || q.includes('number') || q.includes('phone') || q.includes('whatsapp')) {
     return {
-      text: `Dates are reserved on a first-confirmed basis to ensure our core team directs your wedding.\n\nTo check availability for your dates:\n• **Direct Phone/WhatsApp**: +91 70043 75740\n• **Secondary Contact**: +91 95045 87351\n• **Email**: info@theroyalfilms.in\n\nClick below to connect with Niraj Singh directly on WhatsApp.`,
+      text: `We take a limited number of weddings per season to ensure Niraj Singh and our core senior team direct every shoot.\n\nTo check availability for your wedding dates:\n• **Direct Phone/WhatsApp**: +91 70043 75740\n• **Secondary Contact**: +91 95045 87351\n• **Email**: info@theroyalfilms.in`,
       action: {
         type: 'whatsapp',
-        label: 'WhatsApp +91 70043 75740',
+        label: 'WhatsApp Niraj Singh',
         url: STUDIO_INFO.whatsappUrl
       }
     };
@@ -138,7 +130,7 @@ export function getLocalResponse(query: string): { text: string; action?: ChatMe
 
   // 8. Default intelligent studio answer
   return {
-    text: `Thank you for reaching out to **The Royal Films**! We are a luxury wedding cinema and photography studio directed by AAFT alumnus Niraj Singh.\n\nWe provide:\n• Candid Photography & Cinematic 4K Films\n• 4K Drone Aerial Coverage\n• Pre-Wedding Concept Shoots\n• Handcrafted Italian Flush-Mount Albums\n\nWould you like to know about our **packages & pricing**, **drone & camera equipment**, or **check date availability**?`,
+    text: `Namaste! Welcome to **The Royal Films**. We are a luxury wedding cinema & photography team led by AAFT filmmaker Niraj Singh in Gaya, Bihar.\n\nWould you like to know about our **packages & pricing**, **4K drone & cinema gear**, or **check availability for your wedding dates**?`,
     action: {
       type: 'whatsapp',
       label: 'Chat on WhatsApp',
@@ -146,6 +138,7 @@ export function getLocalResponse(query: string): { text: string; action?: ChatMe
     }
   };
 }
+
 
 // Hybrid AI Caller: Calls Vercel Serverless /api/chat with Openrouter_API, or direct OpenRouter/Gemini API, with fallback to local trained expert
 export async function sendChatMessage(userText: string, chatHistory: ChatMessage[]): Promise<{ text: string; action?: ChatMessage['action'] }> {
