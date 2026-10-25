@@ -47,7 +47,7 @@ export default function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsInitialLoading(false);
-    }, 1550);
+    }, 1450);
     return () => clearTimeout(timer);
   }, []);
 
@@ -123,12 +123,7 @@ export default function App() {
       />
 
       {/* Dedicated Page Render - Constantly visible behind the door with smooth 3D depth fly-through */}
-      <main
-        className={`min-h-screen origin-center transition-all duration-700 ${
-          isInitialLoading || isTransitioning ? 'scale-[0.97] opacity-95' : 'scale-100 opacity-100'
-        }`}
-        style={{ transitionTimingFunction: 'cubic-bezier(0.19, 1, 0.22, 1)' }}
-      >
+      <main className={`min-h-screen transition-transform duration-700 ease-out origin-center ${isInitialLoading || isTransitioning ? 'scale-[0.94]' : 'scale-100'}`}>
         {currentPage === 'home' && (
           <HomePage
             onSelectProject={(project) => setSelectedProject(project)}

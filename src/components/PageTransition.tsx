@@ -57,15 +57,15 @@ export const PageTransition: React.FC<PageTransitionProps> = ({
       // Super smooth easing: viewer moves through door
       const t1 = setTimeout(() => {
         setStage('approaching');
-      }, 380);
+      }, 350);
 
       const t2 = setTimeout(() => {
         setStage('revealing');
-      }, 1050);
+      }, 950);
 
       const t3 = setTimeout(() => {
         setStage('idle');
-      }, 1550);
+      }, 1450);
 
       return () => {
         clearTimeout(t1);
@@ -82,7 +82,7 @@ export const PageTransition: React.FC<PageTransitionProps> = ({
         setStage('intro');
         const t1 = setTimeout(() => {
           setStage('approaching');
-        }, 160);
+        }, 150);
         return () => clearTimeout(t1);
       } else if (phase === 'uncovering') {
         setStage('revealing');
@@ -113,17 +113,25 @@ export const PageTransition: React.FC<PageTransitionProps> = ({
         perspectiveOrigin: '50% 50%'
       }}
     >
-      {/* 1. Coordinated Ambient Depth Veil - Page is Clearly Visible Behind the Door */}
+      {/* 1. Coordinated Background of the Specific Page's Color */}
       <div
         className="absolute inset-0 transition-opacity duration-700 ease-out pointer-events-none"
         style={{
-          opacity: isRevealing ? 0 : isApproaching ? 0.2 : 0.65,
-          transitionTimingFunction: 'cubic-bezier(0.19, 1, 0.22, 1)',
-          background: isDarkContent
-            ? `radial-gradient(circle at center, transparent 0%, rgba(255,255,255,0.35) 45%, ${pageColor} 100%)`
-            : `radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.3) 45%, ${pageColor} 100%)`
+          backgroundColor: pageColor,
+          opacity: isRevealing ? 0 : 1,
+          transitionTimingFunction: 'cubic-bezier(0.19, 1, 0.22, 1)'
         }}
-      />
+      >
+        {/* Subtle radial depth gradient on top of the specific page color */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: isDarkContent
+              ? 'radial-gradient(circle at center, rgba(255,255,255,0.4) 0%, rgba(0,0,0,0.1) 100%)'
+              : 'radial-gradient(circle at center, rgba(255,255,255,0.12) 0%, rgba(0,0,0,0.25) 100%)'
+          }}
+        />
+      </div>
 
       {/* 2. Sleek Horizontal Line in Screen Middle */}
       <div
@@ -152,11 +160,11 @@ export const PageTransition: React.FC<PageTransitionProps> = ({
           transform: isIntro
             ? 'scale(1) translate3d(0, 0, 0px)'
             : isApproaching
-            ? 'scale(3.5) translate3d(0, 0, 280px)'
-            : 'scale(8.5) translate3d(0, 0, 650px)',
+            ? 'scale(3.4) translate3d(0, 0, 260px)'
+            : 'scale(8) translate3d(0, 0, 600px)',
           opacity: isRevealing ? 0 : 1,
           transition: isIntro
-            ? 'transform 400ms cubic-bezier(0.19, 1, 0.22, 1), opacity 300ms ease-out'
+            ? 'transform 350ms cubic-bezier(0.19, 1, 0.22, 1), opacity 250ms ease-out'
             : isApproaching
             ? 'transform 750ms cubic-bezier(0.19, 1, 0.22, 1), opacity 500ms ease-out'
             : 'transform 500ms ease-in, opacity 400ms ease-out'
@@ -171,8 +179,16 @@ export const PageTransition: React.FC<PageTransitionProps> = ({
             border: `1.5px solid ${doorBorderColor}`
           }}
         >
-          {/* Center Portal - Crystal clear transparent opening showing the page directly through the doorway */}
-          <div className="absolute inset-1 rounded-xl overflow-hidden pointer-events-none flex items-center justify-center" />
+          {/* Center Portal - View through the door */}
+          <div className="absolute inset-1 rounded-xl overflow-hidden pointer-events-none flex items-center justify-center">
+            <div
+              className="absolute inset-0 transition-opacity duration-600"
+              style={{
+                backgroundColor: pageColor,
+                opacity: isApproaching ? 0.2 : 0.05
+              }}
+            />
+          </div>
 
           {/* LEFT DOOR LEAF - Swings open to the left in 3D space */}
           <div
