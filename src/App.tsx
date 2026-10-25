@@ -122,8 +122,8 @@ export default function App() {
         onOpenInquiry={() => setIsInquiryOpen(true)}
       />
 
-      {/* Dedicated Page Render with Section Specific Styling */}
-      <main className="min-h-screen">
+      {/* Dedicated Page Render with Section Specific Styling - Emerges smoothly as doors open */}
+      <main className={`min-h-screen transition-all duration-700 ease-out origin-center ${isInitialLoading || isTransitioning ? 'scale-[0.97] opacity-90' : 'scale-100 opacity-100'}`}>
         {currentPage === 'home' && (
           <HomePage
             onSelectProject={(project) => setSelectedProject(project)}
