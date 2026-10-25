@@ -1,6 +1,7 @@
 import React from 'react';
 import { PageId } from '../types';
 import { ArrowLeft, Shield, FileText } from 'lucide-react';
+import { TextReveal } from '../components/ScrollReveal';
 
 interface TermsPageProps {
   onNavigatePage: (page: PageId) => void;
@@ -32,11 +33,15 @@ export const TermsPage: React.FC<TermsPageProps> = ({
           <span>TERMS OF ENGAGEMENT & USAGE</span>
         </div>
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white">
-          Terms & Conditions
+          <TextReveal variant="words" stagger={40} duration={800}>
+            Terms & Conditions
+          </TextReveal>
         </h1>
-        <p className="mt-3 text-base sm:text-lg text-neutral-300 max-w-2xl leading-relaxed">
-          Standard terms governing access to theroyalfilms.in and professional photography commissions.
-        </p>
+        <TextReveal variant="fade-blur" delay={150} duration={800}>
+          <p className="mt-3 text-base sm:text-lg text-neutral-300 max-w-2xl leading-relaxed">
+            Standard terms governing access to theroyalfilms.in and professional photography commissions.
+          </p>
+        </TextReveal>
         <p className="font-mono text-xs text-neutral-500 mt-4">LAST UPDATED: OCTOBER 2026</p>
       </div>
 

@@ -24,7 +24,7 @@ export const TextReveal: React.FC<TextRevealProps> = ({
   stagger = 35,
   className = '',
   as: Component = 'div',
-  once = true
+  once = false
 }) => {
   const containerRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -61,7 +61,23 @@ export const TextReveal: React.FC<TextRevealProps> = ({
 
     observer.observe(el);
 
-    return () => observer.disconnect();
+    // Whenever user is at top of page, reset any element below viewport so scrolling down replays the reveal
+    const handleTopReset = () => {
+      if (window.scrollY <= 40 && el) {
+        const rect = el.getBoundingClientRect();
+        if (rect.top > 120) {
+          setIsVisible(false);
+          observer.observe(el);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleTopReset, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('scroll', handleTopReset);
+    };
   }, [once]);
 
   // Variant 1: Word-by-word staggered reveal

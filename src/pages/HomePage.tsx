@@ -48,7 +48,9 @@ export const HomePage: React.FC<HomePageProps> = ({
               <div>
                 <p className="font-mono-meta text-xs text-[#525252]">GAYA & BIHAR // 4K CINEMA ARCHIVE</p>
                 <h3 className="text-xl md:text-2xl font-bold tracking-tight text-black mt-0.5">
-                  Explore Complete Wedding Stories & Films
+                  <TextReveal variant="words" stagger={35} duration={750}>
+                    Explore Complete Wedding Stories & Films
+                  </TextReveal>
                 </h3>
               </div>
             </div>

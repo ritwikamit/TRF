@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { PageId } from '../types';
 import { Shield, Settings, CheckCircle2, RefreshCw, ArrowLeft } from 'lucide-react';
+import { TextReveal } from '../components/ScrollReveal';
 
 interface CookiePolicyPageProps {
   onNavigatePage: (page: PageId) => void;
@@ -46,11 +47,15 @@ export const CookiePolicyPage: React.FC<CookiePolicyPageProps> = ({
           <span>LEGAL & PRIVACY GOVERNANCE</span>
         </div>
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white">
-          Cookie Policy
+          <TextReveal variant="words" stagger={40} duration={800}>
+            Cookie Policy
+          </TextReveal>
         </h1>
-        <p className="mt-3 text-base sm:text-lg text-neutral-300 max-w-2xl leading-relaxed">
-          How The Royal Films atelier uses cookies, session storage, and transparent privacy controls across theroyalfilms.in.
-        </p>
+        <TextReveal variant="fade-blur" delay={150} duration={800}>
+          <p className="mt-3 text-base sm:text-lg text-neutral-300 max-w-2xl leading-relaxed">
+            How The Royal Films atelier uses cookies, session storage, and transparent privacy controls across theroyalfilms.in.
+          </p>
+        </TextReveal>
         <p className="font-mono text-xs text-neutral-500 mt-4">LAST UPDATED: OCTOBER 2026</p>
       </div>
 

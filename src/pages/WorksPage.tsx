@@ -3,6 +3,7 @@ import { PROJECTS } from '../data/projects';
 import { Project, WeddingCategory } from '../types';
 import { ArtCanvas } from '../components/ArtCanvas';
 import { ArrowUpRight, Grid, LayoutGrid, Info, SlidersHorizontal, MapPin } from 'lucide-react';
+import { ScrollReveal, TextReveal } from '../components/ScrollReveal';
 
 interface WorksPageProps {
   onSelectProject: (project: Project) => void;
@@ -38,12 +39,16 @@ export const WorksPage: React.FC<WorksPageProps> = ({ onSelectProject, onOpenInq
             <span>THE ROYAL FILMS WEDDING REEL</span>
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white">
-            Wedding Stories & Cinema
+            <TextReveal variant="words" stagger={40} duration={800}>
+              Wedding Stories & Cinema
+            </TextReveal>
           </h1>
-          <p className="mt-3 text-base sm:text-lg text-white/90 max-w-2xl leading-relaxed">
-            From regal palace pheras in Gaya and Bodh Gaya to destination celebrations in Dubai and across India.
-            Each story captured with 4K cinema cameras, aerial drones, and heartfelt candid intimacy.
-          </p>
+          <TextReveal variant="fade-blur" delay={150} duration={800}>
+            <p className="mt-3 text-base sm:text-lg text-white/90 max-w-2xl leading-relaxed">
+              From regal palace pheras in Gaya and Bodh Gaya to destination celebrations in Dubai and across India.
+              Each story captured with 4K cinema cameras, aerial drones, and heartfelt candid intimacy.
+            </p>
+          </TextReveal>
         </div>
 
         {/* View Controls & Specs Toggle */}

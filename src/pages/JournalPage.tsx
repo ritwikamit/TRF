@@ -3,6 +3,7 @@ import { JOURNAL_ARTICLES, STUDIO_INFO } from '../data/projects';
 import { JournalArticle } from '../types';
 import { ArtCanvas } from '../components/ArtCanvas';
 import { ArrowUpRight, BookOpen, Clock, ChevronDown, ChevronUp, CheckCircle, Sparkles } from 'lucide-react';
+import { ScrollReveal, TextReveal } from '../components/ScrollReveal';
 
 interface JournalPageProps {
   onOpenInquiry: () => void;
@@ -25,12 +26,16 @@ export const JournalPage: React.FC<JournalPageProps> = ({ onOpenInquiry }) => {
           <span>WEDDING PLANNING & CINEMA GUIDES</span>
         </div>
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white max-w-4xl">
-          Field Notes & Couple Guides
+          <TextReveal variant="words" stagger={40} duration={800}>
+            Field Notes & Couple Guides
+          </TextReveal>
         </h1>
-        <p className="mt-4 text-lg md:text-xl text-white/90 max-w-3xl leading-relaxed">
-          Practical advice from shooting over 500 weddings in Gaya, Bihar, and destination locations across India and abroad.
-          Learn how to plan timelines, pick lighting, and feel effortless in front of the lens.
-        </p>
+        <TextReveal variant="fade-blur" delay={150} duration={800}>
+          <p className="mt-4 text-lg md:text-xl text-white/90 max-w-3xl leading-relaxed">
+            Practical advice from shooting over 500 weddings in Gaya, Bihar, and destination locations across India and abroad.
+            Learn how to plan timelines, pick lighting, and feel effortless in front of the lens.
+          </p>
+        </TextReveal>
       </div>
 
       {/* Articles Feed */}

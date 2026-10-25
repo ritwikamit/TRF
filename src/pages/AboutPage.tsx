@@ -2,6 +2,7 @@ import React from 'react';
 import { STUDIO_INFO, FAQS } from '../data/projects';
 import { WhatsAppButton } from '../components/WhatsAppButton';
 import { ArrowUpRight, Camera, Video, MapPin, Heart, ShieldCheck } from 'lucide-react';
+import { ScrollReveal, TextReveal } from '../components/ScrollReveal';
 
 interface AboutPageProps {
   onOpenInquiry: () => void;
@@ -26,12 +27,16 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenInquiry }) => {
           <span>THE STUDIO & NIRAJ SINGH</span>
         </div>
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white max-w-4xl">
-          Tech-Enabled Cinematic Wedding Films & Royal Photography
+          <TextReveal variant="words" stagger={35} duration={800}>
+            Tech-Enabled Cinematic Wedding Films & Royal Photography
+          </TextReveal>
         </h1>
-        <p className="mt-4 text-lg md:text-xl text-white/90 max-w-3xl leading-relaxed">
-          Founded in 2018 in Gaya, Bihar by AAFT alumnus Niraj Singh, The Royal Films has documented over 500
-          cherished weddings across Bihar, India, and destination celebrations including Dubai.
-        </p>
+        <TextReveal variant="fade-blur" delay={150} duration={800}>
+          <p className="mt-4 text-lg md:text-xl text-white/90 max-w-3xl leading-relaxed">
+            Founded in 2018 in Gaya, Bihar by AAFT alumnus Niraj Singh, The Royal Films has documented over 500
+            cherished weddings across Bihar, India, and destination celebrations including Dubai.
+          </p>
+        </TextReveal>
       </div>
 
       {/* Two-Column Story Split */}
@@ -41,7 +46,9 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenInquiry }) => {
             OUR ETHOS // FILM-SCHOOL DIRECTION
           </p>
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white leading-snug">
-            We believe the most poignant memories are the ones you didn't even notice happening.
+            <TextReveal variant="words" stagger={35} duration={750}>
+              We believe the most poignant memories are the ones you didn't even notice happening.
+            </TextReveal>
           </h2>
           <div className="pt-2">
             <a
@@ -84,7 +91,9 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenInquiry }) => {
           <div>
             <p className="font-mono-meta text-xs text-white/90 mb-1">ATELIER & PRODUCTION</p>
             <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
-              Inside The Royal Films & On-Location Shoots
+              <TextReveal variant="words" stagger={35} duration={750}>
+                Inside The Royal Films & On-Location Shoots
+              </TextReveal>
             </h3>
           </div>
           <span className="text-xs font-mono text-white/80 hidden sm:block">GAYA // ESTB. 2018</span>

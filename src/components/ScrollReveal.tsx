@@ -81,7 +81,7 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
   distance = 32,
   threshold = 0.12,
   rootMargin = '0px 0px -40px 0px',
-  once = true,
+  once = false,
   className = '',
   style = {},
   as: Component = 'div'
@@ -124,8 +124,22 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
 
     observer.observe(element);
 
+    // Whenever user is at top of page, reset any element below viewport so scrolling down replays the reveal
+    const handleTopReset = () => {
+      if (window.scrollY <= 40 && element) {
+        const rect = element.getBoundingClientRect();
+        if (rect.top > 120) {
+          setIsVisible(false);
+          observer.observe(element);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleTopReset, { passive: true });
+
     return () => {
       observer.disconnect();
+      window.removeEventListener('scroll', handleTopReset);
     };
   }, [threshold, rootMargin, once]);
 

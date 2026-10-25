@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { STUDIO_INFO } from '../data/projects';
 import { WhatsAppButton } from '../components/WhatsAppButton';
 import { Check, Mail, Phone, MapPin, ArrowUpRight, Heart } from 'lucide-react';
+import { ScrollReveal, TextReveal } from '../components/ScrollReveal';
 
 export const ContactPage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -39,12 +40,16 @@ export const ContactPage: React.FC = () => {
           <span>BOOKINGS & STUDIO VISITS</span>
         </div>
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-black max-w-4xl">
-          Check Date Availability & Connect
+          <TextReveal variant="words" stagger={40} duration={800}>
+            Check Date Availability & Connect
+          </TextReveal>
         </h1>
-        <p className="mt-4 text-lg md:text-xl text-neutral-900 max-w-3xl leading-relaxed">
-          We take a limited number of weddings each season to ensure personal attention and cinematic perfection.
-          Reach out early to secure your dates with The Royal Films.
-        </p>
+        <TextReveal variant="fade-blur" delay={150} duration={800}>
+          <p className="mt-4 text-lg md:text-xl text-neutral-900 max-w-3xl leading-relaxed">
+            We take a limited number of weddings each season to ensure personal attention and cinematic perfection.
+            Reach out early to secure your dates with The Royal Films.
+          </p>
+        </TextReveal>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
