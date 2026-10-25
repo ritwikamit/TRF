@@ -29,7 +29,7 @@ const HERO_SLIDES = [
   }
 ];
 
-const THE_PALETTE = ['#8B5CF6', '#EA580C', '#16A34A', '#EAB308', '#0EA5E9'];
+const THE_PALETTE = ['#FF6B00', '#F59E0B', '#8B5CF6', '#10B981', '#F43F5E'];
 
 export const Hero: React.FC<HeroProps> = ({ onScrollDown, onOpenInquiry }) => {
   const [hasMounted, setHasMounted] = useState(false);
@@ -118,57 +118,42 @@ export const Hero: React.FC<HeroProps> = ({ onScrollDown, onOpenInquiry }) => {
 
         {/* Monumental Headline: THE ROYAL FILMS */}
         <h1
-          className="w-full font-extrabold tracking-tight text-white uppercase overflow-hidden leading-[0.9] flex flex-wrap justify-center items-center gap-x-[2vw] md:gap-x-[3vw] drop-shadow-2xl"
-          style={{ fontSize: 'clamp(2.35rem, 9.2vw, 9.5rem)', letterSpacing: '-0.04em' }}
+          className="w-full font-black tracking-tight text-center uppercase leading-[1] sm:leading-[0.95] py-2 select-none"
+          style={{ fontSize: 'clamp(2.85rem, 11.2vw, 11rem)', letterSpacing: '-0.035em' }}
         >
-          {/* Prefix: THE - Color changes according to website color palette */}
+          {/* Prefix: THE - Prominently Enlarged with Vibrant Color */}
           <span
-            className="font-mono text-xs sm:text-sm md:text-xl tracking-[0.35em] block w-full mb-1 sm:mb-2 uppercase font-bold transition-colors duration-700"
+            className="font-mono text-xl sm:text-2xl md:text-4xl lg:text-5xl tracking-[0.25em] sm:tracking-[0.35em] block w-full mb-2 sm:mb-4 uppercase font-black transition-all duration-700"
             style={{
               color: THE_PALETTE[colorIndex],
               opacity: hasMounted ? 1 : 0,
-              transform: hasMounted ? 'translateY(0)' : 'translateY(8px)',
+              transform: hasMounted ? 'translateY(0)' : 'translateY(10px)',
+              filter: 'drop-shadow(0 2px 10px rgba(0,0,0,0.6))',
               transition: 'all 800ms cubic-bezier(0.16, 1, 0.3, 1)'
             }}
           >
             THE
           </span>
 
-          {/* Word 1: ROYAL */}
-          <span className="inline-flex overflow-hidden">
-            {word1.split('').map((char, index) => (
-              <span
-                key={`r1-${index}`}
-                className="inline-block transition-transform duration-1000"
-                style={{
-                  transform: hasMounted ? 'translateY(0%)' : 'translateY(110%)',
-                  opacity: hasMounted ? 1 : 0,
-                  transitionDelay: `${index * 50}ms`,
-                  transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)'
-                }}
-              >
-                {char}
-              </span>
-            ))}
-          </span>
+          {/* Main Title Words: ROYAL FILMS - Enlarged, Never Cut, Regal Royal Gold Gradient */}
+          <div
+            className="flex flex-wrap justify-center items-center gap-x-4 sm:gap-x-7 md:gap-x-10 transition-all duration-1000 px-2 filter drop-shadow-[0_15px_35px_rgba(0,0,0,0.9)]"
+            style={{
+              opacity: hasMounted ? 1 : 0,
+              transform: hasMounted ? 'translateY(0) scale(1)' : 'translateY(16px) scale(0.96)',
+              transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)'
+            }}
+          >
+            {/* Word 1: ROYAL */}
+            <span className="inline-block bg-gradient-to-b from-[#FFFFFF] via-[#FFF9EE] to-[#E5C158] bg-clip-text text-transparent">
+              {word1}
+            </span>
 
-          {/* Word 2: FILMS */}
-          <span className="inline-flex overflow-hidden">
-            {word2.split('').map((char, index) => (
-              <span
-                key={`f2-${index}`}
-                className="inline-block transition-transform duration-1000"
-                style={{
-                  transform: hasMounted ? 'translateY(0%)' : 'translateY(110%)',
-                  opacity: hasMounted ? 1 : 0,
-                  transitionDelay: `${(word1.length + index) * 50}ms`,
-                  transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)'
-                }}
-              >
-                {char}
-              </span>
-            ))}
-          </span>
+            {/* Word 2: FILMS */}
+            <span className="inline-block bg-gradient-to-b from-[#FFFFFF] via-[#FFF9EE] to-[#E5C158] bg-clip-text text-transparent">
+              {word2}
+            </span>
+          </div>
         </h1>
 
         {/* Sub-headline: Legible and High-Contrast over the full-bleed image */}
