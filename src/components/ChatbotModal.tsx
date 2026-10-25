@@ -144,12 +144,12 @@ export const ChatbotModal: React.FC<ChatbotModalProps> = ({ onOpenInquiry }) => 
           {/* Top Brand Header with Distinctive Director Display Picture & Dual Brand Dots */}
           <div className="flex items-center justify-between px-4 py-3 bg-[#111115]/90 border-b border-white/10 shrink-0">
             <div className="flex items-center gap-3">
-              {/* Director Portrait DP with Live Status & Signature Border */}
-              <div className="relative w-10 h-10 rounded-full border border-white/20 shrink-0 shadow-md overflow-hidden bg-neutral-900 group">
+              {/* Director Portrait DP with Pure Black Background & Live Status */}
+              <div className="relative w-10 h-10 rounded-full border border-white/25 shrink-0 shadow-md overflow-hidden bg-black group">
                 <img
                   src="/assets/images/director_avatar.jpg"
                   alt="Niraj Singh - Film Director"
-                  className="w-full h-full object-cover object-top"
+                  className="w-full h-full object-cover object-center"
                 />
                 {/* Live green active badge */}
                 <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-[#16A34A] border-2 border-black" />
@@ -208,7 +208,7 @@ export const ChatbotModal: React.FC<ChatbotModalProps> = ({ onOpenInquiry }) => 
                     <img
                       src="/assets/images/director_avatar.jpg"
                       alt="Niraj Singh"
-                      className="w-6 h-6 rounded-full object-cover object-top shrink-0 border border-white/20 mb-1 shadow-sm"
+                      className="w-6 h-6 rounded-full object-cover object-center shrink-0 border border-white/20 mb-1 shadow-sm bg-black"
                     />
                     <div className="bg-[#141419] border border-white/10 text-neutral-200 rounded-2xl rounded-tl-sm px-4 py-3 leading-relaxed whitespace-pre-line shadow-sm">
                       {msg.text}
