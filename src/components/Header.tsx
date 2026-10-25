@@ -53,14 +53,16 @@ export const Header: React.FC<HeaderProps> = ({
     <>
       {/* Fully Transparent Fixed Header Bar */}
       <header
-        className="fixed top-0 left-0 w-full z-50 bg-transparent px-5 py-4 sm:px-8 md:px-12 transition-colors pointer-events-auto"
+        className={`fixed top-0 left-0 w-full z-50 bg-transparent px-5 py-4 sm:px-8 md:px-12 transition-colors ${
+          isMenuOpen ? 'pointer-events-none' : 'pointer-events-auto'
+        }`}
       >
         <div className="flex items-center justify-between w-full text-white">
           {/* Zone 1: Brand logo 'two dots and trf' with constant purple & orange colors */}
           <div className="flex items-center gap-4">
             <button
               onClick={() => handleNav('home')}
-              className="hover:opacity-85 transition-opacity flex items-center"
+              className="hover:opacity-85 transition-opacity flex items-center pointer-events-auto"
               aria-label="The Royal Films Home"
             >
               <Logo size="md" lightText={true} />
@@ -71,7 +73,7 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
 
           {/* Zone 2: 4-5 concise single-line nav links (desktop) */}
-          <nav className="hidden md:flex items-center gap-8 font-mono text-xs">
+          <nav className="hidden md:flex items-center gap-8 font-mono text-xs pointer-events-auto">
             {navLinks.map((link) => (
               <button
                 key={link.id}
@@ -91,14 +93,14 @@ export const Header: React.FC<HeaderProps> = ({
           <div className="flex items-center gap-4">
             <button
               onClick={() => handleNav('contact')}
-              className="hidden lg:inline-block px-3.5 py-1.5 border border-white text-white text-xs font-mono hover:bg-white hover:text-black transition-colors"
+              className="hidden lg:inline-block px-3.5 py-1.5 border border-white text-white text-xs font-mono hover:bg-white hover:text-black transition-colors pointer-events-auto"
             >
               CHECK WEDDING DATES
             </button>
 
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="flex items-center justify-center p-2 hover:opacity-75 transition-all group"
+              className="flex items-center justify-center p-2 hover:opacity-75 transition-all group pointer-events-auto cursor-pointer touch-manipulation"
               aria-label={isMenuOpen ? 'Close Menu' : 'Open Menu'}
             >
               <div
@@ -123,11 +125,12 @@ export const Header: React.FC<HeaderProps> = ({
         }`}
         style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
       >
-        <div className="h-12" />
+        {/* Top spacing ensuring menu items are never obstructed by mobile headers */}
+        <div className="h-20 sm:h-24 shrink-0" />
 
         {/* Menu Navigation Links */}
         <div className="max-w-5xl mx-auto w-full my-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
-          <nav className="md:col-span-8 flex flex-col space-y-4 md:space-y-6">
+          <nav className="md:col-span-8 flex flex-col space-y-2 sm:space-y-4 md:space-y-6">
             {[
               { id: 'home' as const, number: '01', label: 'Home & Overview' },
               { id: 'works' as const, number: '02', label: 'Wedding Stories & Films' },
@@ -137,13 +140,14 @@ export const Header: React.FC<HeaderProps> = ({
             ].map((item, idx) => (
               <button
                 key={item.id}
+                type="button"
                 onClick={() => handleNav(item.id)}
-                className={`group flex items-baseline text-left transition-transform duration-300 hover:translate-x-3 ${
+                className={`group flex items-baseline text-left transition-transform duration-300 hover:translate-x-3 w-full py-2.5 sm:py-3.5 cursor-pointer touch-manipulation select-none ${
                   currentPage === item.id ? 'translate-x-2' : ''
                 }`}
                 style={{ transitionDelay: `${idx * 30}ms` }}
               >
-                <span className="font-mono text-xs md:text-sm text-neutral-500 mr-4 md:mr-6 group-hover:text-white transition-colors">
+                <span className="font-mono text-xs md:text-sm text-neutral-500 mr-4 md:mr-6 group-hover:text-white transition-colors shrink-0">
                   {item.number}
                 </span>
                 <span className={`text-2xl sm:text-3xl md:text-5xl font-bold tracking-tighter transition-colors ${
