@@ -67,9 +67,6 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <Logo size="md" lightText={true} />
             </button>
-            <span className="hidden xl:inline text-xs font-mono text-neutral-300">
-              THE ROYAL FILMS · GAYA (ESTB. 2018)
-            </span>
           </div>
 
           {/* Zone 2: 4-5 concise single-line nav links (desktop) */}
